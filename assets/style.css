@@ -10,7 +10,7 @@ input, button {
 }
 
 p {
-    align-self: center;
+    margin-left: 10px;
     font-size: 25px;
 }
 img {

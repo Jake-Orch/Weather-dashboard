@@ -11,6 +11,7 @@ $(function () {
     var weathers = document.createElement('p');
     var icon1 = document.createElement('img')
 
+    // This gets the current weather forecast using the input and syntax provided by openweathermap API
     function currentWeather(e) {
         e.preventDefault();
         var input = $('.input').val();
@@ -27,14 +28,15 @@ $(function () {
             })
             .then(function (d) {
                 console.log(d);
+                // Here I am getting all of the information I want from the retrieved data and appending it where i want on the document
                 var weather = d.weather[0].main;
                 var temp = d.main.temp; // celcius
                 var windSpeed = d.wind.speed;  //meters per second
                 var name = d.name;
                 var iconCode = d.weather[0].icon;
-                weathers.textContent = weather;
-                temper.textContent = temp + '°C';
-                wind.textContent = windSpeed + 'm/s';
+                weathers.textContent = 'weather: ' + weather;
+                temper.textContent = 'temp: ' + temp + '°C';
+                wind.textContent = 'wind: ' + windSpeed + 'm/s';
                 name1.textContent = name;
                 icon1.setAttribute('src', 'http://openweathermap.org/img/w/' + iconCode + '.png');
                 currentSec.appendChild(icon1)
@@ -43,7 +45,7 @@ $(function () {
                 currentSec.appendChild(temper);
                 currentSec.appendChild(weathers);
                 console.log(weather)
-
+// here i am saving the recent search onto the local storage
                 var log = JSON.parse(localStorage.getItem("history")) || [];
                 if (log.length > 5) {
                     log.shift();
@@ -51,7 +53,7 @@ $(function () {
                 localStorage.setItem('Locations', JSON.stringify(input));
             })
     };
-
+// This is where I shall add the function for the 5 day forecast
     function fiveDay(e) {
         e.preventDefault();
         var input = $('.input').val();
@@ -68,7 +70,7 @@ $(function () {
             })
     };
 
-
+// Here im adding the eventlisteners to call the previous 2 functions
     btn.addEventListener('click', currentWeather);
     btn.addEventListener('click', fiveDay);
 
