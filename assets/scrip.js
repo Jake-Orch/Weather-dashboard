@@ -19,6 +19,9 @@ $(function () {
         console.log(input);
         fetch(currentForecast)
             .then(function (r) {
+                if (!r.ok) {
+                    alert('insert valid location');
+                } else
                 console.log(r);
                 return r.json()
             })
@@ -30,8 +33,8 @@ $(function () {
                 var name = d.name;
                 var iconCode = d.weather[0].icon;
                 weathers.textContent = weather;
-                temper.textContent = temp;
-                wind.textContent = windSpeed;
+                temper.textContent = temp + '°C';
+                wind.textContent = windSpeed + 'm/s';
                 name1.textContent = name;
                 icon1.setAttribute('src', 'http://openweathermap.org/img/w/' + iconCode + '.png');
                 currentSec.appendChild(icon1)
@@ -40,8 +43,9 @@ $(function () {
                 currentSec.appendChild(temper);
                 currentSec.appendChild(weathers);
                 console.log(weather)
+                localStorage.setItem('Locations', JSON.stringify(input));
             })
-        };
+    };
 
     function fiveDay(e) {
         e.preventDefault();
@@ -57,14 +61,12 @@ $(function () {
                 console.log(d);
                 console.log(d)
             })
-        };
-                function getAndSet() {
-                    localStorage.setItem
-                }
-            
-                btn.addEventListener('click', currentWeather)
-                btn.addEventListener('click', fiveDay)
+    };
+
+
+    btn.addEventListener('click', currentWeather);
+    btn.addEventListener('click', fiveDay);
 
 
 
-            })
+})
