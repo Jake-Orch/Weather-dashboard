@@ -6,5 +6,5 @@ This assignment was meant to test my ability using API's, namely bootstrap and o
 ![Image of delpoyed page](./assets/image.PNG)
 
 ## How to access the page
-Deployed Webpage: https://jake-orch.github.io/Weather-dashboard/
+Deployed Webpage: https://jake-orch.github.io/Weather-dashboard/  
 GitHub Repository: https://github.com/Jake-Orch/Weather-dashboard
