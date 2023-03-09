@@ -8,3 +8,12 @@ input, button {
     border-width: 1px;
     border-radius: 3px;
 }
+
+p {
+    align-self: center;
+    font-size: 25px;
+}
+img {
+    height: 60px;
+    width: 60px;
+}
