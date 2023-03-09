@@ -43,6 +43,11 @@ $(function () {
                 currentSec.appendChild(temper);
                 currentSec.appendChild(weathers);
                 console.log(weather)
+
+                var log = JSON.parse(localStorage.getItem("history")) || [];
+                if (log.length > 5) {
+                    log.shift();
+                }
                 localStorage.setItem('Locations', JSON.stringify(input));
             })
     };
