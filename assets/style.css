@@ -1,0 +1,10 @@
+* {
+    font-family: 'Raleway', sans-serif;;
+}
+
+input, button {
+    height: 40px;
+    margin: 10px;
+    border-width: 1px;
+    border-radius: 3px;
+}
