@@ -9,7 +9,8 @@ $(function () {
     var wind = document.createElement('p');
     var temper = document.createElement('p');
     var weathers = document.createElement('p');
-    var icon1 = document.createElement('img')
+    var icon1 = document.createElement('img');
+    var locations = [];
 
     // This gets the current weather forecast using the input and syntax provided by openweathermap API
     function currentWeather(e) {
@@ -23,7 +24,7 @@ $(function () {
                 if (!r.ok) {
                     alert('insert valid location');
                 } else
-                console.log(r);
+                    console.log(r);
                 return r.json()
             })
             .then(function (d) {
@@ -44,16 +45,11 @@ $(function () {
                 currentSec.appendChild(wind);
                 currentSec.appendChild(temper);
                 currentSec.appendChild(weathers);
-                console.log(weather)
-// here i am saving the recent search onto the local storage
-                var log = JSON.parse(localStorage.getItem("history")) || [];
-                if (log.length > 5) {
-                    log.shift();
-                }
-                localStorage.setItem('Locations', JSON.stringify(input));
-            })
+                console.log(weather);
+                addToLocation(input);
+        })
     };
-// This is where I shall add the function for the 5 day forecast
+    // This is where I shall add the function for the 5 day forecast
     function fiveDay(e) {
         e.preventDefault();
         var input = $('.input').val();
@@ -70,7 +66,35 @@ $(function () {
             })
     };
 
-// Here im adding the eventlisteners to call the previous 2 functions
+    function addToLocation(input) {
+        if (locations.includes(input)) {
+            console.log(locations);
+            console.log(input);
+         //   var slice = locations.slice(input, 1);
+         //   locations.unshift(slice[0]);
+         //   console.log(slice);
+         var indexOf = locations.indexOf(input);
+         var slice = locations.slice(indexOf, 1);
+         console.log(slice);
+        }
+        else if (locations.length > 5) {
+            return;
+        } else {
+            locations.unshift(input);
+            console.log(locations);
+        };
+    }
+
+    function getLocation() {
+        // here i am saving the recent search onto the local storage
+        var log = JSON.parse(localStorage.getItem('Locations')) || [];
+        if (log.length > 5) {
+            log.shift();
+        }
+        localStorage.setItem('Locations', JSON.stringify(locations));
+    }
+
+    // Here im adding the eventlisteners to call the previous 2 functions
     btn.addEventListener('click', currentWeather);
     btn.addEventListener('click', fiveDay);
 
