@@ -1,10 +1,9 @@
 $(function () {
     var btn = document.getElementById('btn');
-    var listGroup = $('.group-list');
+    var list = document.getElementById('list')
     var currentSec = document.getElementById('current');
     var fiveDaySec = document.getElementById('fiveday');
     var apiKey = 'bec4025b9704b04bb71486ebf08243fd';
-    var addLI = $(listGroup).append('<li>');
     var name1 = document.createElement('p');
     var wind = document.createElement('p');
     var temper = document.createElement('p');
@@ -47,6 +46,7 @@ $(function () {
                 currentSec.appendChild(weathers);
                 console.log(weather);
                 addToLocation(input);
+                setLocation();
             })
     };
     // This is where I shall add the function for the 5 day forecast
@@ -67,38 +67,42 @@ $(function () {
     };
 
     function addToLocation(input) {
-        if (locations.includes(input)) {
-            console.log(locations);
-            console.log(input);
+        if (locations.length >= 5) {
+            locations.pop();
+            locations.unshift(input);
+        } else if (locations.includes(input)) {
             var indexOf = locations.indexOf(input);
             var splice = locations.splice(indexOf, 1);
             var recent = splice.pop();
-            console.log(indexOf);
-            console.log(recent);
             locations.unshift(recent);
-            console.log(locations);
-        }
-        else if (locations.length > 5) {
-            return;
+
         } else {
             locations.unshift(input);
-            console.log(locations);
-        };
+        } return (locations);
+
     }
 
-    function getLocation() {
-        // here i am saving the recent search onto the local storage
-        var log = JSON.parse(localStorage.getItem('Locations')) || [];
-        if (log.length > 5) {
-            log.shift();
+    function displayLocations(locations) {
+        if (locations.length !== null || '') {
+            for (i = 0; i < locations.length; i++)
+                var li = document.createElement('li');
+            li.innerHTML = locations[i];
+            list.appendChild(li);
+            console.log(locations[i]);
+        } else {
+            return;
         }
+    }
+
+    function setLocation() {
+        // here i am saving the recent search onto the local storage
         localStorage.setItem('Locations', JSON.stringify(locations));
     }
 
     // Here im adding the eventlisteners to call the previous 2 functions
     btn.addEventListener('click', currentWeather);
     btn.addEventListener('click', fiveDay);
-
+    displayLocations(locations);
 
 
 })
