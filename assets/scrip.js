@@ -47,7 +47,7 @@ $(function () {
                 currentSec.appendChild(weathers);
                 console.log(weather);
                 addToLocation(input);
-        })
+            })
     };
     // This is where I shall add the function for the 5 day forecast
     function fiveDay(e) {
@@ -70,12 +70,13 @@ $(function () {
         if (locations.includes(input)) {
             console.log(locations);
             console.log(input);
-         //   var slice = locations.slice(input, 1);
-         //   locations.unshift(slice[0]);
-         //   console.log(slice);
-         var indexOf = locations.indexOf(input);
-         var slice = locations.slice(indexOf, 1);
-         console.log(slice);
+            var indexOf = locations.indexOf(input);
+            var splice = locations.splice(indexOf, 1);
+            var recent = splice.pop();
+            console.log(indexOf);
+            console.log(recent);
+            locations.unshift(recent);
+            console.log(locations);
         }
         else if (locations.length > 5) {
             return;
