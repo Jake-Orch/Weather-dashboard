@@ -75,20 +75,26 @@ $(function () {
             var splice = locations.splice(indexOf, 1);
             var recent = splice.pop();
             locations.unshift(recent);
-
+            displayLocations(locations);
         } else {
             locations.unshift(input);
-        } return (locations);
-
+            displayLocations(locations);
+        }
+        console.log(locations);
     }
 
     function displayLocations(locations) {
-        if (locations.length !== null || '') {
-            for (i = 0; i < locations.length; i++)
+        console.log(locations)
+        list.querySelectorAll('*').forEach(n => n.remove());
+        if (locations.length > 0) {
+            console.log(locations);
+            for (let i = 0; i < locations.length; i++) {
                 var li = document.createElement('li');
-            li.innerHTML = locations[i];
-            list.appendChild(li);
-            console.log(locations[i]);
+                li.className = 'list-group-item m-2 border rounded-2 bg-secondary align-self-center'
+                li.innerHTML = locations[i];
+                list.appendChild(li);
+                console.log(locations[i]);
+            }
         } else {
             return;
         }
