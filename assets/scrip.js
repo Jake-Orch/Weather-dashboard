@@ -1,7 +1,7 @@
 $(function () {
     var btn = document.getElementById('search');
     var list = document.getElementById('list');
-   // var btn = document.getElementById('search');
+    // var btn = document.getElementById('search');
     var currentSec = document.getElementById('current');
     var fiveDaySec = document.getElementById('fiveday');
     var apiKey = 'bec4025b9704b04bb71486ebf08243fd';
@@ -10,6 +10,7 @@ $(function () {
     var temper = document.createElement('p');
     var weathers = document.createElement('p');
     var icon1 = document.createElement('img');
+    var inputVal = $('.input');
     var locations = JSON.parse(localStorage.getItem("Locations")) || [];
 
     // This gets the current weather forecast using the input and syntax provided by openweathermap API
@@ -45,6 +46,7 @@ $(function () {
                 currentSec.appendChild(weathers);
                 console.log(weather);
                 addToLocation(input);
+                $(inputVal).val('');
             })
     };
     // This is where I shall add the function for the 5 day forecast
@@ -78,16 +80,16 @@ $(function () {
         return locations;
     }
 
-        function reSearch(e) {
-            if (locations.length > 0) {
-                var input = $(e).val();
-                console.log(value);
-                currentWeather(input);
-                fiveDay(input);
-            } else {
-                return;
-            }
-        } 
+    function reSearch(e) {
+        if (locations.length > 0) {
+            var input = $(e).val();
+            console.log(value);
+            currentWeather(input);
+            fiveDay(input);
+        } else {
+            return;
+        }
+    }
 
     function displayLocations(locations) {
         console.log(locations)
@@ -122,7 +124,7 @@ $(function () {
     }
 
     // Here im adding the eventlisteners to call the previous 2 functions
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         e.preventDefault();
         var input = $('.input').val();
 
@@ -131,8 +133,8 @@ $(function () {
         reSearch();
     });
     //btn.addEventListener('click', currentWeather);
-  //  btn.addEventListener('click', fiveDay);
-    
+    //  btn.addEventListener('click', fiveDay);
+
     setLocations(locations);
     getLocations();
 })
