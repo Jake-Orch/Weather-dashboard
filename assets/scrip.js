@@ -46,7 +46,6 @@ $(function () {
                 currentSec.appendChild(weathers);
                 console.log(weather);
                 addToLocation(input);
-                setLocation();
             })
     };
     // This is where I shall add the function for the 5 day forecast
@@ -79,7 +78,7 @@ $(function () {
             locations.unshift(input);
         }
         displayLocations(locations);
-        console.log(locations);
+        setLocation(locations);
     }
 
     function displayLocations(locations) {
@@ -101,15 +100,13 @@ $(function () {
         } else {
             return;
         }
-    } 
+    }
 
     function getLocations() {
-        var locations2 = localStorage.getItem('Locations');
-        var parse = JSON.parse(locations2);
-        console.log(parse)
-        displayLocations(parse);
+        var locations2 = JSON.parse(localStorage.getItem('Locations'));
+        displayLocations(locations2);
     }
-    function setLocation() {
+    function setLocation(locations) {
         // here i am saving the recent search onto the local storage
         localStorage.setItem('Locations', JSON.stringify(locations));
     }
