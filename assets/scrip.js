@@ -9,7 +9,7 @@ $(function () {
     var temper = document.createElement('p');
     var weathers = document.createElement('p');
     var icon1 = document.createElement('img');
-    var locations = [];
+    var locations = JSON.parse(localStorage.getItem("Locations")) || [];
 
     // This gets the current weather forecast using the input and syntax provided by openweathermap API
     function currentWeather(e) {
@@ -77,8 +77,8 @@ $(function () {
         } else {
             locations.unshift(input);
         }
-        displayLocations(locations);
-        setLocation(locations);
+        setLocations(locations);
+        return locations;
     }
 
     function displayLocations(locations) {
@@ -106,10 +106,12 @@ $(function () {
         var locations2 = JSON.parse(localStorage.getItem('Locations'));
         displayLocations(locations2);
     }
-    function setLocation(locations) {
+    function setLocations(locations) {
         // here i am saving the recent search onto the local storage
         localStorage.setItem('Locations', JSON.stringify(locations));
+        displayLocations(locations);
     }
+
 
     // Here im adding the eventlisteners to call the previous 2 functions
     btn.addEventListener('click', currentWeather);
