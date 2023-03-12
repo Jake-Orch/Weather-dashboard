@@ -5,10 +5,12 @@ $(function () {
     var currentSec = document.getElementById('current');
     var fiveDaySec = document.getElementById('fiveday');
     var apiKey = 'bec4025b9704b04bb71486ebf08243fd';
+    var div = document.createElement('div');
     var name1 = document.createElement('p');
     var wind = document.createElement('p');
     var temper = document.createElement('p');
     var weathers = document.createElement('p');
+    var date = document.createElement('p');
     var icon1 = document.createElement('img');
     var inputVal = $('.input');
     var locations = JSON.parse(localStorage.getItem("Locations")) || [];
@@ -27,7 +29,6 @@ $(function () {
                 return r.json()
             })
             .then(function (d) {
-                console.log(d);
                 // Here I am getting all of the information I want from the retrieved data and appending it where i want on the document
                 var weather = d.weather[0].main;
                 var temp = d.main.temp; // celcius
@@ -36,7 +37,7 @@ $(function () {
                 var iconCode = d.weather[0].icon;
                 weathers.textContent = 'weather: ' + weather;
                 temper.textContent = 'temp: ' + temp + '°C';
-                wind.textContent = 'wind: ' + windSpeed + 'm/s';
+                wind.textContent = 'wind: ' + windSpeed + ' m/s';
                 name1.textContent = name;
                 icon1.setAttribute('src', 'http://openweathermap.org/img/w/' + iconCode + '.png');
                 currentSec.appendChild(icon1)
@@ -60,7 +61,33 @@ $(function () {
             })
             .then(function (d) {
                 console.log(d);
-                console.log(d)
+                var div = document.createElement('div');
+                var name12 = document.createElement('p');
+                var wind2 = document.createElement('p');
+                var temper2 = document.createElement('p');
+                var weathers2 = document.createElement('p');
+                var icon12 = document.createElement('img');
+                for (let i = 6; i < d.list.length; i += 8) {
+                    var dates = d.list[i].dt_txt
+                    var weather = d.list[i].weather[0].main;
+                    var temp = d.list[i].main.temp;
+                    var windSpeed = d.list[i].wind.speed;
+                    var name = d.city.name;
+                    var iconCode = d.list[i].weather[0].icon
+                    weathers2.textContent = 'weather: ' + weather;
+                    temper2.textContent = 'temp: ' + temp + '°C';
+                    wind2.textContent = 'wind: ' + windSpeed + ' m/s';
+                    name12.textContent = name;
+                    date.textContent = dates;
+                    icon12.setAttribute('src', 'https://openweathermap.org/img/wn/' + iconCode + '@2x.png');
+                    fiveDaySec.appendChild(div);
+                    div.appendChild(icon12);
+                    div.appendChild(date);
+                    div.appendChild(name12);
+                    div.appendChild(wind2);
+                    div.appendChild(temper2);
+                    div.appendChild(weathers2);
+                }
             })
     };
 
