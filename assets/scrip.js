@@ -67,19 +67,18 @@ $(function () {
     };
 
     function addToLocation(input) {
-        if (locations.length >= 5) {
-            locations.pop();
-            locations.unshift(input);
-        } else if (locations.includes(input)) {
+        if (locations.includes(input)) {
             var indexOf = locations.indexOf(input);
             var splice = locations.splice(indexOf, 1);
             var recent = splice.pop();
             locations.unshift(recent);
-            displayLocations(locations);
+        } else if (locations.length == 5) {
+            locations.pop();
+            locations.unshift(input);
         } else {
             locations.unshift(input);
-            displayLocations(locations);
         }
+        displayLocations(locations);
         console.log(locations);
     }
 
@@ -90,10 +89,14 @@ $(function () {
             console.log(locations);
             for (let i = 0; i < locations.length; i++) {
                 var li = document.createElement('li');
-                li.className = 'list-group-item m-2 border rounded-2 bg-secondary align-self-center'
+                li.className = 'list-group-item m-1 p-1 border rounded-pill bg-secondary text-light align-self-center shadow w-75'
                 li.innerHTML = locations[i];
                 list.appendChild(li);
                 console.log(locations[i]);
+                li.addEventListener('click', function () {
+                    currentWeather(locations[i]);
+                    fiveDay(locations[i]);
+                })
             }
         } else {
             return;
@@ -109,6 +112,5 @@ $(function () {
     btn.addEventListener('click', currentWeather);
     btn.addEventListener('click', fiveDay);
     displayLocations(locations);
-
 
 })

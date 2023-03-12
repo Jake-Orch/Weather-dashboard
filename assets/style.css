@@ -17,3 +17,7 @@ img {
     height: 60px;
     width: 60px;
 }
+li {
+    text-align: center;
+    font-size: 180%;
+}
