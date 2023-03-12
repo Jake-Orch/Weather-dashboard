@@ -61,25 +61,33 @@ $(function () {
             })
             .then(function (d) {
                 console.log(d);
-                var div = document.createElement('div');
-                var name12 = document.createElement('p');
-                var wind2 = document.createElement('p');
-                var temper2 = document.createElement('p');
-                var weathers2 = document.createElement('p');
-                var icon12 = document.createElement('img');
+                while (fiveDaySec.hasChildNodes()) {
+                    fiveDaySec.removeChild(fiveDaySec.firstChild);
+                }
                 for (let i = 6; i < d.list.length; i += 8) {
-                    var dates = d.list[i].dt_txt
+                    var div = document.createElement('div');
+                    var name12 = document.createElement('p');
+                    var wind2 = document.createElement('p');
+                    var temper2 = document.createElement('p');
+                    var weathers2 = document.createElement('p');
+                    var icon12 = document.createElement('img');
+
+                    var dates = new Date(d.list[i].dt * 1000);
                     var weather = d.list[i].weather[0].main;
                     var temp = d.list[i].main.temp;
                     var windSpeed = d.list[i].wind.speed;
                     var name = d.city.name;
                     var iconCode = d.list[i].weather[0].icon
+
                     weathers2.textContent = 'weather: ' + weather;
                     temper2.textContent = 'temp: ' + temp + '°C';
                     wind2.textContent = 'wind: ' + windSpeed + ' m/s';
                     name12.textContent = name;
-                    date.textContent = dates;
+                    date.textContent = dates.toLocaleDateString()
                     icon12.setAttribute('src', 'https://openweathermap.org/img/wn/' + iconCode + '@2x.png');
+                    div.setAttribute('class', 'text-center bg-secondary text-light m-2 rounded-2');
+                    div.setAttribute('id', 'div');
+                    div.setAttribute('style', 'height: 320px; width: 230px;');
                     fiveDaySec.appendChild(div);
                     div.appendChild(icon12);
                     div.appendChild(date);
@@ -159,8 +167,6 @@ $(function () {
         fiveDay(input);
         reSearch();
     });
-    //btn.addEventListener('click', currentWeather);
-    //  btn.addEventListener('click', fiveDay);
 
     setLocations(locations);
     getLocations();
