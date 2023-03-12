@@ -101,8 +101,14 @@ $(function () {
         } else {
             return;
         }
-    }
+    } 
 
+    function getLocations() {
+        var locations2 = localStorage.getItem('Locations');
+        var parse = JSON.parse(locations2);
+        console.log(parse)
+        displayLocations(parse);
+    }
     function setLocation() {
         // here i am saving the recent search onto the local storage
         localStorage.setItem('Locations', JSON.stringify(locations));
@@ -112,5 +118,5 @@ $(function () {
     btn.addEventListener('click', currentWeather);
     btn.addEventListener('click', fiveDay);
     displayLocations(locations);
-
+    getLocations()
 })
